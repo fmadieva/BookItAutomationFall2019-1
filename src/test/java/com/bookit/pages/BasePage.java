@@ -1,6 +1,8 @@
 package com.bookit.pages;
 
+import com.bookit.utilities.BrowserUtilities;
 import com.bookit.utilities.Driver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -27,7 +29,9 @@ public abstract class BasePage {
     }
 
     public void goToSelfPage(){
-        wait.until(ExpectedConditions.elementToBeClickable(my));
-        actions.moveToElement(my).pause(2000).click(self).perform();
+        BrowserUtilities.wait(5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("my")));
+        wait.until(ExpectedConditions.elementToBeClickable(my)).click();
+        self.click();
     }
 }
