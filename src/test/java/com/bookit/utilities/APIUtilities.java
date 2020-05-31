@@ -109,7 +109,7 @@ public class APIUtilities {
             response.then().log().ifError();//print response details in case of error
             response.then().statusCode(200);//ensure that it returns 200 status code
             return response.jsonPath().getInt("id");
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("USER DOESN'T EXISTS!");
             System.out.println(e.getMessage());
         }
@@ -132,6 +132,7 @@ public class APIUtilities {
 
     /**
      * Use this method to add new batch to the system
+     *
      * @param batchNumber to add
      * @return response object
      */
@@ -148,25 +149,35 @@ public class APIUtilities {
 
     /**
      * Use this method to add new team
-     * @param teamName must be unique within specific batch number
-     * @param location VA or IL
+     *
+     * @param teamName    must be unique within specific batch number
+     * @param location    VA or IL
      * @param batchNumber any number that already exist
      * @return response object
      */
-    public static Response addTeam(String teamName, String location, int batchNumber){
+    public static Response addTeam(String teamName, String location, int batchNumber) {
         String token = getToken("teacher");
         Response response = given().
-                                    auth().oauth2(token).
-                                    queryParam("team-name", teamName).
-                                    queryParam("campus-location", location).
-                                    queryParam("batch-number", batchNumber).
-                            when().
-                                post(Endpoints.ADD_TEAM);
+                auth().oauth2(token).
+                queryParam("team-name", teamName).
+                queryParam("campus-location", location).
+                queryParam("batch-number", batchNumber).
+                when().
+                post(Endpoints.ADD_TEAM);
         response.then().log().ifError();
         return response;
     }
 
-//    public static void ensureUserDoesntExist(String email, String password){
-//        Response response = getUserID(e)
-//    }
+    /**
+     * Use this method before creating new user.
+     * If user exists - this method will that user
+     * @param email
+     * @param password
+     */
+    public static void ensureUserDoesntExist(String email, String password) {
+        int userID = getUserID(email, password);
+        if (userID > 0) {
+            deleteUserByID(userID);
+        }
+    }
 }
