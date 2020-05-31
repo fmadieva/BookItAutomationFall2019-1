@@ -15,8 +15,8 @@ public class LoginStepDefinitions {
     }
 
     @When("user logs in with {string} email and {string} password")
-    public void user_logs_in_with_email_and_password(String string, String string2) {
-       loginPage.login(string, string2);
+    public void user_logs_in_with_email_and_password(String email, String password) {
+       loginPage.login(email, password);
     }
 
     @When("user navigates to personal page")
