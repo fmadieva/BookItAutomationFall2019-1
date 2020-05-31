@@ -176,6 +176,8 @@ public class APIUtilities {
      */
     public static void ensureUserDoesntExist(String email, String password) {
         int userID = getUserID(email, password);
+        //condition is true if userID is a positive value
+        //there is no users with 0 or negative id
         if (userID > 0) {
             deleteUserByID(userID);
         }
