@@ -35,3 +35,5 @@ public abstract class BasePage {
         self.click();
     }
 }
+
+// This is parent class for every page
